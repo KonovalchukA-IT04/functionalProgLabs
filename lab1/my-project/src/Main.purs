@@ -23,9 +23,16 @@ reverse = go Nil
 snoc :: forall arg. List arg -> arg -> List arg
 snoc lst arg = reverse (arg : reverse lst)
 
+-- | The Maybe type is used to represent optional values and
+-- | can be seen as something like a type-safe null,
+-- | where Nothing is null and Just x is the non-null value x
+
 tail :: forall arg. List arg -> Maybe (List arg)
 tail Nil = Nothing
 tail (_ : lst) = Just lst
+
+-- | fromMaybe x Nothing == x
+-- | fromMaybe x (Just y) == y
 
 length :: forall arg. List arg -> Int
 length lst =
@@ -57,8 +64,8 @@ list4empty = Nil
 main :: Effect Unit
 main = do
   log ("Result 1: " <> show (singleton arg1))
-  log ("Result 2: " <> show (null list2))
+  log ("Result 2 (full): " <> show (null list2))
   log ("Result 2 (empty): " <> show (null list2empty))
   log ("Result 3: " <> show (snoc list3 arg3))
-  log ("Result 4: " <> show (length list4))
+  log ("Result 4 (full): " <> show (length list4))
   log ("Result 4 (empty): " <> show (length list4empty))
